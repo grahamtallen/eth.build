@@ -17,7 +17,7 @@ import {
   Tooltip,
   // Switch,
   // FormControlLabel,
-  Link
+  Link,
 } from "@material-ui/core";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import ShareIcon from "@material-ui/icons/Share";
@@ -28,14 +28,14 @@ import {
   logout3Box,
   getSpace,
   getBox,
-  isFetching
+  isFetching,
 } from "../utils/3BoxManager";
 
 import moment from "moment";
 
 import Box from "3box";
 import ProfileHover from "profile-hover";
-import { getDocumentInfo, saveDocument } from "../utils/Documents3BoxSpace";
+import { getDocumentInfo, saveDocument } from "../utils/IDXdocs";
 
 const STORAGE_3BOX_DOCUMENT = "eth.build.documentTitle3Box";
 
@@ -45,11 +45,11 @@ const axios = require("axios");
 
 const useStyles = makeStyles({
   button: {
-    width: 200
-  }
+    width: 200,
+  },
 });
 
-const ThreeBoxIcon = props => {
+const ThreeBoxIcon = (props) => {
   return (
     <SvgIcon {...props} viewBox="0 0 290 289">
       <path
@@ -66,7 +66,7 @@ function SaveDialog(props) {
     setOpenSaveDialog,
     openSaveDialog,
     dynamicWidth,
-    screenshot
+    screenshot,
   } = props;
 
   const classes = useStyles();
@@ -105,7 +105,7 @@ function SaveDialog(props) {
 
   React.useEffect(() => {
     if (liteGraph) {
-      codec.compress(liteGraph.serialize()).then(data => {
+      codec.compress(liteGraph.serialize()).then((data) => {
         setCompressed(data);
       });
     }
@@ -145,7 +145,7 @@ function SaveDialog(props) {
     ) {
       changeTo3BoxSavePage();
     }
-  }, [saveType]);
+  }, [changeTo3BoxSavePage, saveType]);
   let link =
     window.location.protocol + "//" + window.location.host + "/" + compressed;
 
@@ -161,14 +161,14 @@ function SaveDialog(props) {
       </div>
     );
   }
-  const changeTo3BoxSavePage = () => {
+  const changeTo3BoxSavePage = setTimeout(() => {
     let savedTitle = localStorage.getItem(STORAGE_3BOX_DOCUMENT);
     setDocumentTitle(savedTitle ? savedTitle : "");
     if (savedTitle) {
       updateDocumentInfo(savedTitle);
     }
     setSaveType("3BOX_SAVE");
-  };
+  });
   const download = async () => {
     console.log("SAVING COMPRESSED", compressed);
 
@@ -198,7 +198,7 @@ function SaveDialog(props) {
       document.body.appendChild(element);
       element.click();
       document.body.removeChild(element);
-      setTimeout(function() {
+      setTimeout(function () {
         URL.revokeObjectURL(url);
       }, 1000 * 60);
       handleClose();
@@ -209,7 +209,7 @@ function SaveDialog(props) {
     console.log("share", compressed);
     setSaveType("SHARE");
     let result = await axios.post("https://network.eth.build:44386/build", {
-      compressed
+      compressed,
     });
 
     console.log("share result", result);
@@ -245,7 +245,7 @@ function SaveDialog(props) {
     }
   };
 
-  const updateDocumentInfo = async fileName => {
+  const updateDocumentInfo = async (fileName) => {
     let space = getSpace();
     if (space) {
       let documentInfo = await getDocumentInfo(space, fileName);
@@ -264,7 +264,7 @@ function SaveDialog(props) {
     setSaveType("3BOX_SCREEN");
   };
 
-  const handleTitle = e => {
+  const handleTitle = (e) => {
     let title = e.target.value;
     setDocumentTitle(title);
     if (updateTimer) {
@@ -424,7 +424,7 @@ function SaveDialog(props) {
                   width: "100%",
                   textAlign: "center",
                   fontSize: 12,
-                  color: "#000000"
+                  color: "#000000",
                 }}
               >
                 <a href={"https://eth.build/build#" + shared}>
@@ -438,7 +438,7 @@ function SaveDialog(props) {
                     style={{
                       border: "1px solid #dddddd",
                       padding: 20,
-                      margin: 5
+                      margin: 5,
                     }}
                   />
                 </div>
@@ -452,7 +452,7 @@ function SaveDialog(props) {
                     display: "block",
                     textAlign: "center",
                     margin: "auto",
-                    marginBottom: 16
+                    marginBottom: 16,
                   }}
                 />
                 <Typography variant="overline" display="block" gutterBottom>
@@ -473,7 +473,7 @@ function SaveDialog(props) {
                 border: "1px solid #dddddd",
                 padding: 5,
                 margin: 5,
-                width: dynamicWidth
+                width: dynamicWidth,
               }}
               value={link}
             ></input>
@@ -501,7 +501,7 @@ function SaveDialog(props) {
             style={{
               justifyContent: "center",
               padding: 32,
-              textAlign: "center"
+              textAlign: "center",
             }}
           >
             <Stepper alternativeLabel activeStep={threeBoxConnectionStep}>
@@ -564,7 +564,7 @@ function SaveDialog(props) {
               onClick={logout}
               style={{
                 display: "block",
-                margin: "auto"
+                margin: "auto",
               }}
             >
               Logout
@@ -582,7 +582,7 @@ function SaveDialog(props) {
                 marginTop: 16,
                 marginBottom: 16,
                 maxWidth: 300,
-                textAlign: "justify"
+                textAlign: "justify",
               }}
               display="block"
             >
@@ -652,7 +652,7 @@ function SaveDialog(props) {
               onClick={logout}
               style={{
                 display: "block",
-                margin: "auto"
+                margin: "auto",
               }}
             >
               Logout

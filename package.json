@@ -31,7 +31,7 @@
     "fortmatic": "^1.1.3",
     "hex-rgb": "^4.1.0",
     "html2canvas": "^1.0.0-rc.5",
-    "ipfs-core": "^0.10.0",
+    "ipfs-core": "^0.10.4",
     "json-url": "^2.4.2",
     "jsqr": "^1.2.0",
     "keccak256": "^1.0.0",

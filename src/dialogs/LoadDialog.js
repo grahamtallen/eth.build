@@ -15,12 +15,12 @@ import {
   logout3Box,
   getSpace,
   getBox,
-  isFetching
+  isFetching,
 } from "../utils/3BoxManager";
 
 import Box from "3box";
 import ProfileHover from "profile-hover";
-import { loadDocuments } from "../utils/Documents3BoxSpace";
+import { loadDocuments } from "../utils/IDXdocs";
 import FilesList from "./FilesList";
 
 const STORAGE_3BOX_DOCUMENT = "eth.build.documentTitle3Box";
@@ -29,11 +29,11 @@ var codec = require("json-url")("lzw");
 
 const useStyles = makeStyles({
   button: {
-    width: 200
-  }
+    width: 200,
+  },
 });
 
-const ThreeBoxIcon = props => {
+const ThreeBoxIcon = (props) => {
   return (
     <SvgIcon {...props} viewBox="0 0 290 289">
       <path
@@ -71,9 +71,7 @@ function LoadDialog(props) {
 
   React.useEffect(() => {
     console.log({
-      isLoggedIn: web3Modal.address
-        ? Box.isLoggedIn(web3Modal.address)
-        : "n/a"
+      isLoggedIn: web3Modal.address ? Box.isLoggedIn(web3Modal.address) : "n/a",
     });
 
     let space = getSpace();
@@ -141,7 +139,7 @@ function LoadDialog(props) {
     handleClose();
   };
 
-  const getJsonFromCompressed = compressedString =>
+  const getJsonFromCompressed = (compressedString) =>
     new Promise((resolve, reject) => {
       let loc = compressedString.indexOf("<string>");
       if (loc > 0) {
@@ -154,7 +152,7 @@ function LoadDialog(props) {
         );
       }
       console.log("decompress:", compressedString);
-      codec.decompress(compressedString).then(json => {
+      codec.decompress(compressedString).then((json) => {
         console.log("configure graph with:", json);
         if (json) {
           resolve(json);
@@ -162,7 +160,7 @@ function LoadDialog(props) {
       });
     });
 
-  const openFile = async file => {
+  const openFile = async (file) => {
     console.log("Opening FILE: ", file);
     let compressedString = file.data;
     let json = await getJsonFromCompressed(compressedString);
@@ -182,7 +180,7 @@ function LoadDialog(props) {
             border: "1px solid #777777",
             color: live ? "#00ff00" : "#0000ff",
             padding: 5,
-            cursor: "pointer"
+            cursor: "pointer",
           }}
         >
           <input
@@ -190,10 +188,10 @@ function LoadDialog(props) {
             type="file"
             name="file"
             value=""
-            onChange={e => {
+            onChange={(e) => {
               console.log("FILE", e.target.files[0]);
               var reader = new FileReader();
-              reader.onload = event => {
+              reader.onload = (event) => {
                 let compressedString = event.target.result;
                 //console.log("compressedString",compressedString)
                 let loc = compressedString.indexOf("<string>");
@@ -207,7 +205,7 @@ function LoadDialog(props) {
                   );
                 }
                 console.log("decompress:", compressedString);
-                codec.decompress(compressedString).then(json => {
+                codec.decompress(compressedString).then((json) => {
                   console.log("configure graph with:", json);
                   if (json) {
                     localStorage.setItem("litegraph", JSON.stringify(json));
@@ -309,7 +307,7 @@ function LoadDialog(props) {
               style={{
                 justifyContent: "center",
                 padding: 32,
-                textAlign: "center"
+                textAlign: "center",
               }}
             >
               <Stepper alternativeLabel activeStep={threeBoxConnectionStep}>
@@ -372,7 +370,7 @@ function LoadDialog(props) {
                 onClick={logout}
                 style={{
                   display: "block",
-                  margin: "auto"
+                  margin: "auto",
                 }}
               >
                 Logout
@@ -448,7 +446,7 @@ function LoadDialog(props) {
                 onClick={logout}
                 style={{
                   display: "block",
-                  margin: "auto"
+                  margin: "auto",
                 }}
               >
                 Logout
