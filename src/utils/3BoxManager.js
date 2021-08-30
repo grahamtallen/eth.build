@@ -1,5 +1,5 @@
 import Box from "3box";
-import { BOX_SPACE } from "./IDXDocs.js";
+import { BOX_SPACE } from "./IDXdocs.js";
 
 let box = null;
 let space = null;

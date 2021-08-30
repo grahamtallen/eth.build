@@ -424,6 +424,7 @@ function LoadDialog(props) {
                 await saveDocument(
                   threeBoxSpace,
                   documentTitle,
+                  {},
                   compressed,
                   screenshot
                 );

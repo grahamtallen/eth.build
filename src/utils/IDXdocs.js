@@ -20,9 +20,20 @@ export const getDocumentInfo = async (space, fileName) => {
   return { document, metadata, versions };
 };
 
-export const saveDocument = async (space, fileName, content, screenshot) => {
+export const saveDocument = async (
+  space,
+  fileName,
+  content,
+  compressed,
+  screenshot
+) => {
   const family = space; // ceramic uses the concept of 'family' to namespace documents
-  console.log({ space, fileName, document, screenshot });
+  console.log({ space, fileName, content, screenshot });
+  //TileDocument.create(
+  //  ceramic,
+  //  { foo: 'bar', biz: 'baz'},
+  //  {family: 'doc family'}
+  //)
   // const id = await TileDocument.create(ceramic, content, { family });
 };
 

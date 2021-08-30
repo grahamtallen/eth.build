@@ -75,6 +75,7 @@ function SaveDialog(props) {
   const [shared, setShared] = React.useState();
 
   const [compressed, setCompressed] = React.useState();
+  const [rawJson, setJson] = React.useState();
 
   const [documentTitle, setDocumentTitle] = React.useState("");
   // const [publicDocument, setPublicDocument] = React.useState(false);
@@ -105,16 +106,11 @@ function SaveDialog(props) {
 
   React.useEffect(() => {
     if (liteGraph) {
-      codec.compress(liteGraph.serialize()).then((data) => {
-        setCompressed(data);
-      });
+      debugger;
+      const raw = liteGraph.serialize();
+      console.log("setting compressed: ", raw);
+      setJson(raw);
     }
-
-    // console.log({
-    //   isLoggedIn: web3Modal.address
-    //     ? Box.isLoggedIn(web3Modal.address)
-    //     : "n/a"
-    // });
 
     let space = getSpace();
     let box = getBox();
@@ -145,7 +141,7 @@ function SaveDialog(props) {
     ) {
       changeTo3BoxSavePage();
     }
-  }, [changeTo3BoxSavePage, saveType]);
+  }, [saveType]);
   let link =
     window.location.protocol + "//" + window.location.host + "/" + compressed;
 
@@ -161,14 +157,14 @@ function SaveDialog(props) {
       </div>
     );
   }
-  const changeTo3BoxSavePage = setTimeout(() => {
+  const changeTo3BoxSavePage = () => {
     let savedTitle = localStorage.getItem(STORAGE_3BOX_DOCUMENT);
     setDocumentTitle(savedTitle ? savedTitle : "");
     if (savedTitle) {
       updateDocumentInfo(savedTitle);
     }
     setSaveType("3BOX_SAVE");
-  });
+  };
   const download = async () => {
     console.log("SAVING COMPRESSED", compressed);
 
@@ -630,6 +626,7 @@ function SaveDialog(props) {
                 await saveDocument(
                   space,
                   documentTitle,
+                  rawJson,
                   compressed,
                   screenshot
                 );
